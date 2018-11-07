@@ -1,0 +1,142 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+	echo $this->getChildHtml('items_before');
+	$_oscConfig = Mage::getModel('osc/config');
+	/*$_itemBtnsCondition = $_oscConfig->getShowItemRemoveBtn()
+		|| $_oscConfig->getShowItemEditBtn()
+		|| $_oscConfig->getShowMoveWishlistBtn();*/
+?>
+<div id="checkout-review-table-wrapper">
+	<form action="<?php echo $this->getUrl('checkout/cart/updatePost') ?>" method="post">
+	<table class="data-table" id="checkout-review-table">
+		<?php if ($this->helper('tax')->displayCartBothPrices()): $colspan = $rowspan = 2; else: $colspan = $rowspan = 1; endif; ?>
+		<col />
+		<?php /*if($_itemBtnsCondition): ?>
+		<col width="1" />
+		<?php endif;*/ ?>
+		<col width="1" />
+		<col width="1" />
+		<col width="1" />
+		<?php if ($this->helper('tax')->displayCartBothPrices()): ?>
+		<col width="1" />
+		<col width="1" />
+		<?php endif; ?>
+		<thead>
+			<tr>
+				<th rowspan="<?php echo $rowspan ?>"><?php echo $this->__('Product Name') ?></th>
+				<?php /*if($_itemBtnsCondition): ?>
+				<th colspan="<?php echo $colspan ?>" class="a-center">&nbsp;</th>
+				<?php endif;*/ ?>
+				<th colspan="<?php echo $colspan ?>" class="a-center"><?php echo $this->__('Price') ?></th>
+				<th rowspan="<?php echo $rowspan ?>" class="a-center"><?php echo $this->__('Qty') ?></th>
+				<th colspan="<?php echo $colspan ?>" class="a-center"><?php echo $this->__('Subtotal') ?></th>
+			</tr>
+			<?php if ($this->helper('tax')->displayCartBothPrices()): ?>
+				<tr>
+					<th class="a-right"><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
+					<th><?php echo $this->helper('tax')->getIncExcTaxLabel(true) ?></th>
+					<th class="a-right"><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
+					<th><?php echo $this->helper('tax')->getIncExcTaxLabel(true) ?></th>
+				</tr>
+			<?php endif; ?>
+		</thead>
+		<?php echo $this->getChildHtml('totals'); ?>
+		<tbody>
+		<?php foreach($this->getItems() as $_item): ?>
+			<?php echo $this->getItemHtml($_item)?>
+		<?php endforeach ?>
+		</tbody>
+	</table>
+	<?php
+		$_btnsCondition = ($_oscConfig->getShowContinueBtn() && $this->getContinueShoppingUrl())
+			|| $_oscConfig->getShowUpdateBtn()
+			|| $_oscConfig->getShowClearBtn();
+	?>
+	<?php if($_btnsCondition): ?>
+	<div class="review-btns">
+		<?php if($_oscConfig->getShowContinueBtn() && $this->getContinueShoppingUrl()): ?>
+			<button type="button" title="<?php echo $this->__('Continue Shopping') ?>" class="button btn-continue" onclick="setLocation('<?php echo $this->getContinueShoppingUrl() ?>')"><span><span><?php echo $this->__('Continue Shopping') ?></span></span></button>
+		<?php endif; ?>
+		<?php if($_oscConfig->getShowUpdateBtn()): ?>
+		<button type="submit" name="update_cart_action" value="update_qty" title="<?php echo $this->__('Update Cart'); ?>" class="button btn-update"><span><span><?php echo $this->__('Update Cart'); ?></span></span></button>
+		<?php endif; ?>
+		<?php if($_oscConfig->getShowClearBtn()): ?>
+		<button type="submit" name="update_cart_action" value="empty_cart" title="<?php echo $this->__('Clear Cart'); ?>" class="button btn-empty" id="empty_cart_button"><span><span><?php echo $this->__('Clear Cart'); ?></span></span></button>
+		<?php endif; ?>
+		<!--[if lt IE 8]>
+		<input type="hidden" id="update_cart_action_container" />
+		<script type="text/javascript">
+		//<![CDATA[
+			Event.observe(window, 'load', function()
+			{
+				// Internet Explorer (lt 8) does not support value attribute in button elements
+				$emptyCartButton = $('empty_cart_button');
+				$cartActionContainer = $('update_cart_action_container');
+				if ($emptyCartButton && $cartActionContainer) {
+					Event.observe($emptyCartButton, 'click', function()
+					{
+						$emptyCartButton.setAttribute('name', 'update_cart_action_temp');
+						$cartActionContainer.setAttribute('name', 'update_cart_action');
+						$cartActionContainer.setValue('empty_cart');
+					});
+				}
+
+			});
+		//]]>
+		</script>
+		<![endif]-->
+	</div>
+	<?php endif; ?>
+	</form>
+</div>
+<?php echo $this->getChildHtml('items_after'); ?>
+<script type="text/javascript">
+//<![CDATA[
+	decorateTable('checkout-review-table');
+	truncateOptions();
+//]]>
+</script>
+<?php if (false): ?>
+<div id="checkout-review-submit">
+	<?php echo $this->getChildHtml('agreements') ?>
+	<?php /* <div class="buttons-set" id="review-buttons-container"> */ ?>
+		<?php /*<p class="f-left"><?php echo $this->__('Forgot an Item?') ?> <a href="<?php echo $this->getUrl('checkout/cart') ?>"><?php echo $this->__('Edit Your Cart') ?></a></p>*/ ?>
+		<?php //echo $this->getChildHtml('button') ?>
+	<?php /* </div> */ ?>
+	<span class="please-wait" id="review-please-wait" style="display:none;">
+		<img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo $this->__('Submitting order information...') ?>" title="<?php echo $this->__('Submitting order information...') ?>" class="v-middle" /> <?php echo $this->__('Submitting order information...') ?>
+	</span>
+	<?php /*
+	<script type="text/javascript">
+	//<![CDATA[
+		review = new Review('<?php echo $this->getUrl('checkout/onepage/saveOrder') ?>', '<?php echo $this->getUrl('checkout/onepage/success') ?>', $('checkout-agreements'));
+	//]]>
+	</script>
+	*/ ?>
+</div>
+<?php endif; ?>

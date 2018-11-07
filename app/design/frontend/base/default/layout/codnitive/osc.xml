@@ -1,0 +1,204 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * CODNITIVE
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE_EULA.html.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.codnitive.com/en/terms-of-service-softwares/
+ * http://www.codnitive.com/fa/terms-of-service-softwares/
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade to newer
+ * versions in the future.
+ *
+ * @category   Codnitive
+ * @package    Codnitive_OSC
+ * @author     Hassan Barza <support@codnitive.com>
+ * @copyright  Copyright (c) 2012 CODNITIVE Co. (http://www.codnitive.com)
+ * @license    http://www.codnitive.com/en/terms-of-service-softwares/ End User License Agreement (EULA 1.0)
+ */
+
+-->
+<layout version="0.1.0">
+
+<!--    <onestepcheckout_checkout_index translate="label">-->
+		<!--<update handle="checkout_onepage_index" />
+		<reference name="root">
+			<action method="setTemplate"><template>codnitive/onestepcheckout/checkout.phtml</template></action>
+		</reference>-->
+		<!--<label>One Step Checkout</label>
+		<remove name="left"/>
+		<remove name="right"/>
+
+		<reference name="root">
+			<action method="setTemplate"><template>page/1column.phtml</template></action>
+		</reference>
+		<reference name="content">
+			<block type="checkout/onepage" name="onestepcheckout.checkout" template="codnitive/onestepcheckout/checkout.phtml">
+				<block type="checkout/onepage_login" name="checkout.onepage.login" as="login" template="checkout/onepage/login.phtml">
+					<block type="page/html_wrapper" name="checkout.onepage.login.before" as="login_before" translate="label">
+						<label>Login/Registration Before</label>
+						<action method="setMayBeInvisible"><value>1</value></action>
+					</block>
+				</block>
+				<block type="checkout/onepage_billing" name="checkout.onepage.billing" as="billing" template="checkout/onepage/billing.phtml"/>
+				<block type="checkout/onepage_shipping" name="checkout.onepage.shipping" as="shipping" template="checkout/onepage/shipping.phtml"/>
+				<block type="checkout/onepage_shipping_method" name="checkout.onepage.shipping_method" as="shipping_method" template="checkout/onepage/shipping_method.phtml">
+					<block type="checkout/onepage_shipping_method_available" name="checkout.onepage.shipping_method.available" as="available" template="checkout/onepage/shipping_method/available.phtml"/>
+					<block type="checkout/onepage_shipping_method_additional" name="checkout.onepage.shipping_method.additional" as="additional" template="checkout/onepage/shipping_method/additional.phtml"/>
+				</block>
+				<block type="checkout/onepage_payment" name="checkout.onepage.payment" as="payment" template="checkout/onepage/payment.phtml">
+					<block type="checkout/onepage_payment_methods" name="checkout.payment.methods" as="methods" template="checkout/onepage/payment/methods.phtml">
+						<action method="setMethodFormTemplate"><method>purchaseorder</method><template>payment/form/purchaseorder.phtml</template></action>
+					</block>
+				</block>
+				<block type="checkout/onepage_review" name="checkout.onepage.review" as="review" template="checkout/onepage/review.phtml"/>
+			</block>
+		</reference>
+	</onestepcheckout_checkout_index>-->
+
+	<checkout_onepage_index>
+<!--        <remove name="right"/>-->
+		<reference name="root">
+			<action method="setTemplate" ifconfig="codnitiveosc/osc/active"><template>page/1column.phtml</template></action>
+			<action method="unsetChild" ifconfig="codnitiveosc/osc/active"><name>right</name></action>
+		</reference>
+		<reference name="head">
+			<action method="addCss" ifconfig="codnitiveosc/osc/active"><stylesheet>css/codnitive/osc/styles.css</stylesheet></action>
+			<action method="addJs" ifconfig="codnitiveosc/osc/active"><script>codnitive/osc/checkout.js</script></action>
+		</reference>
+		<!--<reference name="content">
+			<block type="customer/account_forgotpassword" name="forgotPassword" as="forgotPassword" template="codnitive/customer/form/forgotpassword.phtml" />
+		</reference>-->
+		<reference name="checkout.onepage">
+			<action method="setTemplate" ifconfig="codnitiveosc/osc/active"><template>codnitive/osc/checkout.phtml</template></action>
+			<block type="customer/account_forgotpassword" name="forgotPassword" template="codnitive/customer/form/forgotpassword.phtml" />
+			<block type="checkout/agreements" name="checkout.onepage.agreements" as="agreements" template="checkout/onepage/agreements.phtml"/>
+			<block type="core/template" name="checkout.onepage.review.button" as="button" template="checkout/onepage/review/button.phtml"/>
+			<block type="checkout/cart_coupon" name="checkout.cart.coupon" as="coupon" template="codnitive/osc/checkout/coupon.phtml"/>
+		</reference>
+		<reference name="checkout.onepage.login">
+			<action method="setTemplate" ifconfig="codnitiveosc/osc/active"><template>codnitive/osc/checkout/login.phtml</template></action>
+		</reference>
+		<reference name="checkout.onepage.billing">
+			<action method="setTemplate" ifconfig="codnitiveosc/osc/active"><template>codnitive/osc/checkout/billing.phtml</template></action>
+			<block type="checkout/onepage_billing" name="form-field-name" template="codnitive/osc/widget/form/fields/name.phtml" />
+			<block type="checkout/onepage_billing" name="form-field-company" template="codnitive/osc/widget/form/fields/company.phtml" />
+			<block type="checkout/onepage_billing" name="form-field-email" template="codnitive/osc/widget/form/fields/email.phtml" />
+			<block type="checkout/onepage_billing" name="form-field-address" template="codnitive/osc/widget/form/fields/address.phtml" />
+			<block type="checkout/onepage_billing" name="form-field-country" template="codnitive/osc/widget/form/fields/country.phtml" />
+			<block type="checkout/onepage_billing" name="form-field-region" template="codnitive/osc/widget/form/fields/region.phtml" />
+			<block type="checkout/onepage_billing" name="form-field-city" template="codnitive/osc/widget/form/fields/city.phtml" />
+			<block type="checkout/onepage_billing" name="form-field-postcode" template="codnitive/osc/widget/form/fields/postcode.phtml" />
+			<block type="checkout/onepage_billing" name="form-field-telephone" template="codnitive/osc/widget/form/fields/telephone.phtml" />
+			<block type="checkout/onepage_billing" name="form-field-cellphone" template="codnitive/osc/widget/form/fields/cellphone.phtml" />
+			<block type="checkout/onepage_billing" name="form-field-fax" template="codnitive/osc/widget/form/fields/fax.phtml" />
+			<block type="checkout/onepage_billing" name="form-field-vat" template="codnitive/osc/widget/form/fields/vat.phtml" />
+			<block type="checkout/onepage_billing" name="form-field-dob" template="codnitive/osc/widget/form/fields/dob.phtml" />
+			<block type="checkout/onepage_billing" name="form-field-gender" template="codnitive/osc/widget/form/fields/gender.phtml" />
+			<block type="checkout/onepage_billing" name="form-field-taxvat" template="codnitive/osc/widget/form/fields/taxvat.phtml" />
+		</reference>
+		<reference name="checkout.onepage.shipping">
+			<action method="setTemplate" ifconfig="codnitiveosc/osc/active"><template>codnitive/osc/checkout/shipping.phtml</template></action>
+		</reference>
+		<reference name="checkout.onepage.shipping_method">
+			<action method="setTemplate" ifconfig="codnitiveosc/osc/active"><template>codnitive/osc/checkout/shipping_method.phtml</template></action>
+		</reference>
+		<reference name="checkout.onepage.shipping_method.available">
+			<action method="setTemplate" ifconfig="codnitiveosc/osc/active"><template>codnitive/osc/checkout/shipping_method/available.phtml</template></action>
+		</reference>
+		<reference name="checkout.onepage.payment">
+			<action method="setTemplate" ifconfig="codnitiveosc/osc/active"><template>codnitive/osc/checkout/payment.phtml</template></action>
+		</reference>
+		<reference name="checkout.payment.methods">
+			<action method="setTemplate" ifconfig="codnitiveosc/osc/active"><template>codnitive/osc/checkout/payment/methods.phtml</template></action>
+		</reference>
+		<reference name="checkout.shipping.methods">
+			<action method="setTemplate" ifconfig="codnitiveosc/osc/active"><template>codnitive/osc/checkout/payment/methods.phtml</template></action>
+		</reference>
+		<reference name="checkout.onepage.review">
+			<action method="setTemplate" ifconfig="codnitiveosc/osc/active"><template>codnitive/osc/checkout/review.phtml</template></action>
+<!--            <block type="checkout/onepage_review_info" name="checkout.onestep.review" template="codnitive/osc/checkout/review/info.phtml">-->
+			<block type="osc/checkout_onepage_review_info" name="checkout.onestep.review" template="codnitive/osc/checkout/review/info.phtml">
+<!--                <action method="addItemRender"><type>default</type><block>checkout/cart_item_renderer</block><template>checkout/onepage/review/item.phtml</template></action>-->
+				<action method="addItemRender"><type>default</type><block>checkout/cart_item_renderer</block><template>codnitive/osc/checkout/review/item.phtml</template></action>
+<!--                <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>checkout/onepage/review/item.phtml</template></action>-->
+				<action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>codnitive/osc/checkout/review/item.phtml</template></action>
+<!--                <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>checkout/onepage/review/item.phtml</template></action>-->
+				<action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>codnitive/osc/checkout/review/item.phtml</template></action>
+				<block type="checkout/cart_totals" name="checkout.onepage.review.info.totals" as="totals" template="checkout/onepage/review/totals.phtml"/>
+<!--				<block type="checkout/cart_totals" name="checkout.onepage.review.info.totals" as="totals" template="codnitive/osc/checkout/review/totals.phtml"/>-->
+				<block type="core/text_list" name="checkout.onepage.review.info.items.before" as="items_before" translate="label">
+					<label>Items Before</label>
+				</block>
+				<block type="core/text_list" name="checkout.onepage.review.info.items.after" as="items_after" translate="label">
+					<label>Items After</label>
+				</block>
+				<block type="checkout/agreements" name="checkout.onepage.agreements" as="agreements" template="checkout/onepage/agreements.phtml"/>
+				<block type="core/template" name="checkout.onepage.review.button" as="button" template="checkout/onepage/review/button.phtml"/>
+<!--                <action method="addItemRender"><type>bundle</type><block>bundle/checkout_cart_item_renderer</block><template>checkout/onepage/review/item.phtml</template></action>-->
+				<action method="addItemRender"><type>bundle</type><block>bundle/checkout_cart_item_renderer</block><template>codnitive/osc/checkout/review/item.phtml</template></action>
+<!--                <action method="addItemRender"><type>downloadable</type><block>downloadable/checkout_cart_item_renderer</block><template>downloadable/checkout/onepage/review/item.phtml</template></action>-->
+				<action method="addItemRender"><type>downloadable</type><block>downloadable/checkout_cart_item_renderer</block><template>codnitive/osc/downloadable/checkout/review/item.phtml</template></action>
+			</block>
+		</reference>
+	</checkout_onepage_index>
+
+	<checkout_onepage_login>
+		<reference name="root">
+			<action method="setTemplate"><template>page/1column.phtml</template></action>
+		</reference>
+		<reference name="content">
+			<block type="checkout/onepage_login" name="checkout.onepage.login" as="login" template="checkout/onepage/login.phtml">
+				<block type="page/html_wrapper" name="checkout.onepage.login.before" as="login_before" translate="label">
+					<label>Login/Registration Before</label>
+					<action method="setMayBeInvisible"><value>1</value></action>
+				</block>
+			</block>
+		</reference>
+	</checkout_onepage_login>
+
+	<!--<checkout_onepage_shippingmethod>
+		<remove name="right"/>
+		<remove name="left"/>
+
+		<block type="checkout/onepage_shipping_method_available" name="root" output="toHtml" template="codnitive/osc/checkout/shipping_method/available.phtml"/>
+	</checkout_onepage_shippingmethod>-->
+
+	<checkout_onepage_review translate="label">
+		<label>One Page Checkout Overview</label>
+		<!-- Mage_Checkout -->
+		<remove name="right"/>
+		<remove name="left"/>
+
+<!--        <block type="checkout/onepage_review_info" name="root" output="toHtml" template="codnitive/osc/checkout/review/info.phtml">-->
+		<block type="osc/checkout_onepage_review_info" name="root" output="toHtml" template="codnitive/osc/checkout/review/info.phtml">
+<!--			<action method="addItemRender"><type>default</type><block>checkout/cart_item_renderer</block><template>checkout/onepage/review/item.phtml</template></action>-->
+			<action method="addItemRender"><type>default</type><block>checkout/cart_item_renderer</block><template>codnitive/osc/checkout/review/item.phtml</template></action>
+<!--            <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>checkout/onepage/review/item.phtml</template></action>-->
+			<action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>codnitive/osc/checkout/review/item.phtml</template></action>
+<!--            <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>checkout/onepage/review/item.phtml</template></action>-->
+			<action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>codnitive/osc/checkout/review/item.phtml</template></action>
+			<block type="checkout/cart_totals" name="checkout.onepage.review.info.totals" as="totals" template="checkout/onepage/review/totals.phtml"/>
+<!--			<block type="checkout/cart_totals" name="checkout.onepage.review.info.totals" as="totals" template="codnitive/osc/checkout/review/totals.phtml"/>-->
+			<block type="core/text_list" name="checkout.onepage.review.info.items.before" as="items_before" translate="label">
+				<label>Items Before</label>
+			</block>
+			<block type="core/text_list" name="checkout.onepage.review.info.items.after" as="items_after" translate="label">
+				<label>Items After</label>
+			</block>
+			<block type="checkout/agreements" name="checkout.onepage.agreements" as="agreements" template="checkout/onepage/agreements.phtml"/>
+			<block type="core/template" name="checkout.onepage.review.button" as="button" template="checkout/onepage/review/button.phtml"/>
+<!--            <action method="addItemRender"><type>bundle</type><block>bundle/checkout_cart_item_renderer</block><template>checkout/onepage/review/item.phtml</template></action>-->
+			<action method="addItemRender"><type>bundle</type><block>bundle/checkout_cart_item_renderer</block><template>codnitive/osc/checkout/review/item.phtml</template></action>
+<!--            <action method="addItemRender"><type>downloadable</type><block>downloadable/checkout_cart_item_renderer</block><template>downloadable/checkout/onepage/review/item.phtml</template></action>-->
+			<action method="addItemRender"><type>downloadable</type><block>downloadable/checkout_cart_item_renderer</block><template>codnitive/osc/downloadable/checkout/review/item.phtml</template></action>
+		</block>
+	</checkout_onepage_review>
+
+</layout>

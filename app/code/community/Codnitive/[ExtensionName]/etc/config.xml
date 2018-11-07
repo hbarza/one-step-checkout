@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * CODNITIVE
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE_EULA.html.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.codnitive.com/en/terms-of-service-softwares/
+ * http://www.codnitive.com/fa/terms-of-service-softwares/
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade to newer
+ * versions in the future.
+ *
+ * @category   Codnitive
+ * @package    Codnitive_Codall
+ * @author     Hassan Barza <support@codnitive.com>
+ * @copyright  Copyright (c) 2012 CODNITIVE Co. (http://www.codnitive.com)
+ * @license    http://www.codnitive.com/en/terms-of-service-softwares/ End User License Agreement (EULA 1.0)
+ */
+-->
+<config>
+    <modules>
+        <Codnitive_Pasargad>
+            <version>1.0.24</version>
+            <title>Pasargad Online Payment</title>
+            <link><![CDATA[http://www.codnitive.com/]]></link>
+            <codPool>community</codPool>
+        </Codnitive_Pasargad>
+    </modules>
+    <!-- ... -->
+    <!-- other configuraion nodes -->
+    <adminhtml>
+        <!-- ... -->
+        <!-- other admin config nodes -->
+        <events>
+            <controller_action_predispatch>
+                <observers>
+                    <codnitive_notification_check>
+                        <type>model</type>
+                        <class>notification/feed_updates</class>
+                        <method>checkExtensionsFeed</method>
+                    </codnitive_notification_check>					
+                </observers>
+            </controller_action_predispatch>
+        </events>
+    </adminhtml>
+    <default>
+        <payment>
+            <pasargad>
+                <active>0</active>
+                <!-- ... -->
+                <!-- other config default values -->
+                <chkfrq>518400</chkfrq><!-- check frequency -->
+                <frtrn>1</frtrn><!-- extension first run -->
+            </pasargad>
+        </payment>
+    </default>
+</config>
